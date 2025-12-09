@@ -41,7 +41,7 @@ pip install -r requirements.txt
 docker-compose up -d
 
 # Note: Ensure your spider name matches 'book_spider'
-scrapy crawl book_spider
+scrapy crawl books
 
 # Connect to MongoDB container
 docker exec -it mongodb_container_name mongosh
