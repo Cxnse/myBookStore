@@ -28,3 +28,24 @@ Follow these steps to get the project running on your local machine.
 ```bash
 git clone [https://github.com/Cxnse/mybookstore.git](https://github.com/Cxnse/mybookstore.git)
 cd mybookstore
+
+# Create virtual environment
+python -m venv venv
+
+# Activate it
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+docker-compose up -d
+
+# Note: Ensure your spider name matches 'book_spider'
+scrapy crawl book_spider
+
+# Connect to MongoDB container
+docker exec -it mongodb_container_name mongosh
+
+# Check the data
+use book_store_db
+db.high_value_books.find().pretty()
