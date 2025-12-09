@@ -1,6 +1,6 @@
 # 📚 Smart Inventory Manager (MyBookStore)
 
-![Python](https://img.shields.io/badge/Python-3.14-blue?style=flat&logo=python)
+![Python](https://img.shields.io/badge/Python-3.12-blue?style=flat&logo=python)
 ![Scrapy](https://img.shields.io/badge/Scrapy-2.11-green?style=flat&logo=scrapy)
 ![MongoDB](https://img.shields.io/badge/MongoDB-NoSQL-green?style=flat&logo=mongodb)
 ![Docker](https://img.shields.io/badge/Docker-Container-blue?style=flat&logo=docker)
@@ -20,14 +20,21 @@ This project demonstrates strong **OOP** principles using Python `Dataclasses` f
     * Rating: **5 Stars** ⭐⭐⭐⭐⭐
     * Price: **< £30** 💸
 
+## 📂 Project Structure
+
+* `spiders/book.py`: Main spider logic (crawling & parsing).
+* `items.py`: Data models & cleaning logic (Dataclasses).
+* `pipelines.py`: Filtering logic & MongoDB insertion.
+* `settings.py`: Configuration (DB connection, user-agents).
+
 ## ⚙️ Installation & Setup
 
 Follow these steps to get the project running on your local machine.
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/Cxnse/mybookstore.git](https://github.com/Cxnse/mybookstore.git)
-cd mybookstore
+git clone [https://github.com/Cxnse/myBookStore.git](https://github.com/Cxnse/myBookStore.git)
+cd myBookStore
 
 # Create virtual environment
 python -m venv venv
@@ -38,14 +45,21 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
+
 docker-compose up -d
 
-# Note: Ensure your spider name matches 'book_spider'
+
 scrapy crawl books
 
-# Connect to MongoDB container
+
+# 1. Connect to the running MongoDB container
 docker exec -it mongodb_container_name mongosh
 
-# Check the data
-use book_store_db
-db.high_value_books.find().pretty()
+# 2. Switch to the database (Defined in settings.py)
+use MyBookStoreDB
+
+# 3. Query the collection (Defined in pipelines.py)
+db.scraped_books.find().pretty()
+
+# 4. Check count (Should be low due to strict filtering)
+db.scraped_books.countDocuments()
